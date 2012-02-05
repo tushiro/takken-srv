@@ -14,6 +14,7 @@ var myServer = http.createServer(function(req, res) {
         
         var s = __dirname + ' Hello World!';
         logger.debug(s);
+        logger.end();
     
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
