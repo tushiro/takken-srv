@@ -16,7 +16,7 @@ var myServer = http.createServer(function(req, res) {
 //        logger.debug(s);
 //        logger.end();
     
-        var stream = fs.createWriteStream('/home/takken-test/file.log', { flags: 'a' })
+        var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
         fs.write(s);
         fs.end();
 
