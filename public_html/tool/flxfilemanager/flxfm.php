@@ -13,7 +13,7 @@ $(function(){
 <body>
 	<div id="menu">
 <?php
-	$dir = opendir("../../");
+	$dir = opendir("../../../");
 	while( $filename = readdir( $dir ) ){
 		print "$filename<br>\n";
 	}

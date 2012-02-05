@@ -12,23 +12,23 @@
 		if( substr($crontab,-1) != "\n" ){
 			$crontab = $crontab."\n";
 		}
-		$ct = fopen("../../.crontab","w");
+		$ct = fopen("../../../.crontab","w");
 		@fwrite($ct,$crontab,strlen($crontab));
 
 		fclose($ct);
-		print trim( htmlspecialchars( shell_exec("/usr/bin/crontab ../../.crontab") ) );
+		print trim( htmlspecialchars( shell_exec("/usr/bin/crontab ../../../.crontab") ) );
 		print "<br>";
 	}
 ?>
 	<form method="POST">
 	<textarea name="crontab" rows="10" cols="60"><?php
-	if( file_exists("../../.crontab") ){
-		$ct = fopen("../../.crontab", "r");
-		print fread($ct,filesize("../../.crontab"));
+	if( file_exists("../../../.crontab") ){
+		$ct = fopen("../../../.crontab", "r");
+		print fread($ct,filesize("../../../.crontab"));
 		fclose($ct);
 	}else{
-		touch("../../.crontab");
-		chmod("../../.crontab",0604);
+		touch("../../../.crontab");
+		chmod("../../../.crontab",0604);
 	}
 ?></textarea>
 	<input type="submit" value="submit">
