@@ -1,8 +1,8 @@
 var fcgiApp = require("./fcgi");
 var http = require("http");
-//var takkenUtil = require("./lib/takken_util");
+var takkenUtil = require("./lib/takken_util");
 //var categoryDB = require("./lib/category_db");
-//var logger = takkenUtil.getLogger();
+var logger = takkenUtil.getLogger();
 //var fs = require("fs");
 	
 var myServer = http.createServer(function(req, res) {
@@ -13,7 +13,7 @@ var myServer = http.createServer(function(req, res) {
 //        client.end();
         
         var s = 'Hello World!';
-//        logger.info(s);
+        logger.info(s);
     
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
