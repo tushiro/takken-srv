@@ -11,4 +11,4 @@ chmod 604 .htpasswd
 ls -la
 
 #for node project
-chmod 705 public/service/server.fcgi
+chmod 705 public_html/service/server.fcgi
