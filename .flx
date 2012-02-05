@@ -9,3 +9,6 @@ public_html/tool/flxfilemanager/.htaccess	DUMMY_PROJECT_NAME	PROJECT_NAME
 perl -e 'print "admin:".crypt("12345","aA")."\n";' >.htpasswd
 chmod 604 .htpasswd
 ls -la
+
+#for node project
+chmod 705 public/service/server.fcgi
