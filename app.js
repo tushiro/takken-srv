@@ -1,9 +1,9 @@
 var fcgiApp = require("./fcgi");
 var http = require("http");
-var takkenUtil = require("./lib/takken_util");
+//var takkenUtil = require("./lib/takken_util");
 //var categoryDB = require("./lib/category_db");
 var logger = takkenUtil.getLogger();
-//var fs = require("fs");
+var fs = require("fs");
 	
 var myServer = http.createServer(function(req, res) {
 	setTimeout(function() {
@@ -13,9 +13,13 @@ var myServer = http.createServer(function(req, res) {
 //        client.end();
         
         var s = __dirname + ' Hello World!';
-        logger.debug(s);
-        logger.end();
+//        logger.debug(s);
+//        logger.end();
     
+        var stream = fs.createWriteStream('/home/takken-test/file.log', { flags: 'a' })
+        fs.write(s);
+        fs.end();
+
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
 //          str += categories[i].category;
