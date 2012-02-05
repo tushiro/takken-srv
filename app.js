@@ -13,7 +13,7 @@ var myServer = http.createServer(function(req, res) {
 //        client.end();
         
         var s = 'Hello World!';
-        logger.info(s);
+        logger.warning(s);
     
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
