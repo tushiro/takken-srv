@@ -12,8 +12,8 @@ var myServer = http.createServer(function(req, res) {
 //        var categories = categoryDB.getAll(client);
 //        client.end();
         
-        var s = 'Hello World!';
-        logger.warning(s);
+        var s = __dirname + ' Hello World!';
+        logger.debug(s);
     
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
