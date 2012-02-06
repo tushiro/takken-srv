@@ -26,7 +26,7 @@ var myServer = http.createServer(function(req, res) {
 //        };
     
         res.writeHead(200, {"Content-type": "text/html"});
-        res.end("aaa");
+        res.end(s);
         console.log("Wrote response.");
   
 	}, 1000);
