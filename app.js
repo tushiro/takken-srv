@@ -30,7 +30,7 @@ var myServer = http.createServer(function(req, res) {
         
         try { 
 //        	fs.write(s);
-        	fs.writeSync(fd, str, 0, "utf8");
+        	fs.writeSync(fd, s, 0, "utf8");
 
         } catch (e) {
             s += 'writeSync Error ' + e.stack;

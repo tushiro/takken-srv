@@ -12,3 +12,5 @@ ls -la
 
 #for node project
 chmod 705 public_html/service/server.fcgi
+chmod 777 log
+chmod 777 log/file.log
