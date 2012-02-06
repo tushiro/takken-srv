@@ -21,6 +21,9 @@ var myServer = http.createServer(function(req, res) {
             
         } catch (e) {
             s += 'createWriteStream Error ' + e.stack;
+            res.writeHead(200, {"Content-type": "text/html"});
+            res.end(s);
+            return;
         }
         
         try { 
@@ -28,6 +31,9 @@ var myServer = http.createServer(function(req, res) {
             
         } catch (e) {
             s += 'write Error ' + e.stack;
+            res.writeHead(200, {"Content-type": "text/html"});
+            res.end(s);
+            return;
         }
 
         try { 
@@ -35,6 +41,9 @@ var myServer = http.createServer(function(req, res) {
             
         } catch (e) {
             s += 'fs.end() Error ' + e.stack;
+            res.writeHead(200, {"Content-type": "text/html"});
+            res.end(s);
+            return;
         }
 
 //        var str = "";
