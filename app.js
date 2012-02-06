@@ -17,38 +17,38 @@ var myServer = http.createServer(function(req, res) {
 //        logger.end();
     
 
-        try { 
-//            var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
-        	var fd = fs.openSync('/home/takken-test/log/file.log', "w");
-          
-        } catch (e) {
-            s += 'openSync Error ' + e.stack;
-            res.writeHead(200, {"Content-type": "text/html"});
-            res.end(s);
-            return;
-        }
+//        try { 
+////            var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
+//        	var fd = fs.openSync('/home/takken-test/log/file.log', "r");
+//          
+//        } catch (e) {
+//            s += 'openSync Error ' + e.stack;
+//            res.writeHead(200, {"Content-type": "text/html"});
+//            res.end(s);
+//            return;
+//        }
         
         try { 
 //        	fs.write(s);
-        	fs.writeSync(fd, s, 0, "utf8");
-
+        	s += fs.readFileSync('/home/takken-test/log/file.log');
+        
         } catch (e) {
-            s += 'writeSync Error ' + e.stack;
+            s += 'readFileSync Error ' + e.stack;
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(s);
             return;
         }
 
-        try { 
-//        	fs.end();
-        	fs.closeSync(fd);
-            
-        } catch (e) {
-            s += 'closeSync Error ' + e.stack;
-            res.writeHead(200, {"Content-type": "text/html"});
-            res.end(s);
-            return;
-        }
+//        try { 
+////        	fs.end();
+//        	fs.closeSync(fd);
+//            
+//        } catch (e) {
+//            s += 'closeSync Error ' + e.stack;
+//            res.writeHead(200, {"Content-type": "text/html"});
+//            res.end(s);
+//            return;
+//        }
 
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
