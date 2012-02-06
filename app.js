@@ -22,7 +22,7 @@ var myServer = http.createServer(function(req, res) {
             fs.end();
         
         } catch (e) {
-        	
+        	throw e
         }
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
