@@ -16,10 +16,14 @@ var myServer = http.createServer(function(req, res) {
 //        logger.debug(s);
 //        logger.end();
     
-        var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
-        fs.write(s);
-        fs.end();
-
+        try { 
+            var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
+            fs.write(s);
+            fs.end();
+        
+        } catch (e) {
+        	
+        }
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
 //          str += categories[i].category;
