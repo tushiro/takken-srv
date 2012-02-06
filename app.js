@@ -3,7 +3,7 @@ var http = require("http");
 //var takkenUtil = require("./lib/takken_util");
 //var categoryDB = require("./lib/category_db");
 //var logger = takkenUtil.getLogger();
-//var fs = require("fs");
+var fs = require("fs");
 	
 var myServer = http.createServer(function(req, res) {
 	setTimeout(function() {
