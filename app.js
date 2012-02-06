@@ -12,7 +12,7 @@ var myServer = http.createServer(function(req, res) {
 //        var categories = categoryDB.getAll(client);
 //        client.end();
         
-        var s = 'Hello World test! ';
+        var s = 'Hello World test! ' + Date.now() + " ";
 //        logger.debug(s);
 //        logger.end();
     
