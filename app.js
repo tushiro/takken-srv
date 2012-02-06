@@ -12,18 +12,31 @@ var myServer = http.createServer(function(req, res) {
 //        var categories = categoryDB.getAll(client);
 //        client.end();
         
-        var s = 'Hello World test!';
+        var s = 'Hello World test! ';
 //        logger.debug(s);
 //        logger.end();
     
         try { 
             var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
-            fs.write(s);
-            fs.end();
-        
+            
         } catch (e) {
-        	throw e
+            s += 'createWriteStream Error ' + e.stack;
         }
+        
+        try { 
+        	fs.write(s);
+            
+        } catch (e) {
+            s += 'write Error ' + e.stack;
+        }
+
+        try { 
+        	fs.end();
+            
+        } catch (e) {
+            s += 'fs.end() Error ' + e.stack;
+        }
+
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
 //          str += categories[i].category;
