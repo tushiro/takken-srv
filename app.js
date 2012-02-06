@@ -16,31 +16,35 @@ var myServer = http.createServer(function(req, res) {
 //        logger.debug(s);
 //        logger.end();
     
+
         try { 
-            var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
-            
+//            var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
+        	var fd = fs.openSync('/home/takken-test/log/file.log', "w");
+          
         } catch (e) {
-            s += 'createWriteStream Error ' + e.stack;
+            s += 'openSync Error ' + e.stack;
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(s);
             return;
         }
         
         try { 
-        	fs.write(s);
-            
+//        	fs.write(s);
+        	fs.writeSync(fd, str, 0, "utf8");
+
         } catch (e) {
-            s += 'write Error ' + e.stack;
+            s += 'writeSync Error ' + e.stack;
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(s);
             return;
         }
 
         try { 
-        	fs.end();
+//        	fs.end();
+        	fs.closeSync(fd);
             
         } catch (e) {
-            s += 'fs.end() Error ' + e.stack;
+            s += 'closeSync Error ' + e.stack;
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(s);
             return;
