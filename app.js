@@ -12,13 +12,13 @@ var myServer = http.createServer(function(req, res) {
 //        var categories = categoryDB.getAll(client);
 //        client.end();
         
-        var s = __dirname + ' Hello World test!';
+        var s = 'Hello World test!';
 //        logger.debug(s);
 //        logger.end();
     
-        var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
-        fs.write(s);
-        fs.end();
+//        var stream = fs.createWriteStream('/home/takken-test/log/file.log', { flags: 'a' })
+//        fs.write(s);
+//        fs.end();
 
 //        var str = "";
 //        for(var i = 0; i < categories.length; i++) {
