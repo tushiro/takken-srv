@@ -29,7 +29,6 @@ var myServer = http.createServer(function(req, res) {
 //        }
         
         try { 
-//        	fs.write(s);
         	s += fs.readFileSync('/home/takken-test/log/file.log');
         
         } catch (e) {
