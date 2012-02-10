@@ -6,13 +6,23 @@ var takkenUtil = require("./lib/takken_util");
 var categoryDB = require("./lib/category_db");
 var subjectDB = require("./lib/subject_db");
 
-var logger = takkenUtil.getLogger();
 
 
 var myServer = http.createServer(function(req, res) {
 	setTimeout(function() {
+
+		var logger;
 		
-        try { 
+		try { 
+			var logger = takkenUtil.getLogger();
+		} catch (e) {
+		
+			res.writeHead(200, {"Content-type": "text/html"});
+            res.end(e.stack);
+            return;
+		}
+        
+		try { 
     		var client = takkenUtil.getMySQLClient();
             var subjects = subjectDB.getAll(client);
             client.end();
