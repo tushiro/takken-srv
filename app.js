@@ -14,7 +14,9 @@ var myServer = http.createServer(function(req, res) {
 		var logger;
 		
 		try { 
+			
 			var logger = takkenUtil.getLogger();
+		
 		} catch (e) {
 		
 			res.writeHead(200, {"Content-type": "text/html"});
