@@ -4,6 +4,7 @@ var http = require("http");
 
 var takkenUtil = require("./lib/takken_util");
 var categoryDB = require("./lib/category_db");
+var subjectDB = require("./lib/subject_db");
 
 var logger = takkenUtil.getLogger();
 
@@ -13,13 +14,13 @@ var myServer = http.createServer(function(req, res) {
 		
         try { 
     		var client = takkenUtil.getMySQLClient();
-            var categories = categoryDB.getAll(client);
+            var subjects = subjectDB.getAll(client);
             client.end();
         
 
             var s = "";
-            for(var i = 0; i < categories.length; i++) {
-              s += categories[i].category;
+            for(var i = 0; i < subjects.length; i++) {
+              s += subjects[i].subject;
             };
             
             res.writeHead(200, {"Content-type": "text/html"});
