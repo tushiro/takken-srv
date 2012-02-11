@@ -27,7 +27,6 @@ var myServer = http.createServer(function(req, res) {
 		try { 
     		var client = takkenUtil.getMySQLClient();
             var subjects = subjectDB.getAll(client);
-            client.end();
         
             var s = "";
             for(var i = 0; i < subjects.length; i++) {
@@ -39,6 +38,8 @@ var myServer = http.createServer(function(req, res) {
             console.log(s);
             console.log("Wrote response.");
             logger.info("Hello World!");
+
+            client.end();
 
         } catch (e) {
 //            logger.error(e.stack);
