@@ -31,7 +31,7 @@ var myServer = http.createServer(function(req, res) {
         
             var s = "";
             for(var i = 0; i < subjects.length; i++) {
-              s += subjects[i].subject;
+              s += subjects[i].subject + "\n";
             };
             
             res.writeHead(200, {"Content-type": "text/html"});
