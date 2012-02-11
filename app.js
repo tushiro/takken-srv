@@ -29,7 +29,6 @@ var myServer = http.createServer(function(req, res) {
             var subjects = subjectDB.getAll(client);
             client.end();
         
-
             var s = "";
             for(var i = 0; i < subjects.length; i++) {
               s += subjects[i].subject;
@@ -37,6 +36,7 @@ var myServer = http.createServer(function(req, res) {
             
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(s);
+            console.log(s);
             console.log("Wrote response.");
 
         } catch (e) {
