@@ -41,7 +41,7 @@ var myServer = http.createServer(function(req, res) {
             logger.info("Hello World!");
 
         } catch (e) {
-            logger.error(e.stack);
+//            logger.error(e.stack);
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(e.stack);
             return;
