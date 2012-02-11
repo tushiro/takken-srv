@@ -38,6 +38,7 @@ var myServer = http.createServer(function(req, res) {
             res.end(s);
             console.log(s);
             console.log("Wrote response.");
+            logger.info("Hello World!");
 
         } catch (e) {
             logger.error(e.stack);
