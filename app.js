@@ -34,7 +34,7 @@ var myServer = http.createServer(function(req, res) {
             };
             
             res.writeHead(200, {"Content-type": "text/html"});
-            res.end(s);
+            res.end(Date.now() + " " + s);
             console.log(s);
             console.log("Wrote response.");
             logger.info("Hello World!");
