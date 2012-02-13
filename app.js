@@ -27,6 +27,12 @@ var myServer = http.createServer(function(req, res) {
 		try { 
     		var client = takkenUtil.getMySQLClient();
             var subjects = subjectDB.getAll(client);
+            
+            console.log("start");
+            for(var i = 0; i < subjects.length; i++) {
+                console.log(subjects[i].subject + "\n");
+            };
+            console.log("stop");
         
             var s = "";
             for(var i = 0; i < subjects.length; i++) {
