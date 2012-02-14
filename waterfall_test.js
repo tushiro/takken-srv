@@ -31,5 +31,5 @@ function execute() {
 }
 
 module.exports = {
-    execute: execute;
-}
+    execute: execute
+};
