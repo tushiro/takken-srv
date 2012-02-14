@@ -47,7 +47,7 @@ var myServer = http.createServer(function(req, res) {
 
             client.end();
             
-            var WaterfallTest = require("./waterfall");
+            var WaterfallTest = require("./waterfall_test");
             
             WaterfallTest.execute();
 
