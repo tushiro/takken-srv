@@ -28,11 +28,11 @@ var myServer = http.createServer(function(req, res) {
     		var client = takkenUtil.getMySQLClient();
             var subjects = subjectDB.getAll(client);
             
-            console.log("start");
-            for(var i = 0; i < subjects.length; i++) {
-                console.log(subjects[i].subject + "\n");
-            };
-            console.log("stop");
+//            console.log("start");
+//            for(var i = 0; i < subjects.length; i++) {
+//                console.log(subjects[i].subject + "\n");
+//            };
+//            console.log("stop");
         
             var s = "";
             for(var i = 0; i < subjects.length; i++) {
@@ -41,9 +41,9 @@ var myServer = http.createServer(function(req, res) {
             
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(Date.now() + " " + s);
-            console.log(s);
-            console.log("Wrote response.");
-            logger.info("Hello World!");
+//            console.log(s);
+//            console.log("Wrote response.");
+//            logger.info("Hello World!");
 
             client.end();
             
