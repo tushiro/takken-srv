@@ -57,7 +57,6 @@ var myServer = http.createServer(function(req, res) {
             res.end(e.stack);
             return;
         }
-        
   
 	}, 1000);
 	//throw new Error("Bollocks.");
