@@ -46,6 +46,10 @@ var myServer = http.createServer(function(req, res) {
             logger.info("Hello World!");
 
             client.end();
+            
+            var WaterfallTest = require("./waterfall");
+            
+            WaterfallTest.execute();
 
         } catch (e) {
             logger.error(e.stack);
