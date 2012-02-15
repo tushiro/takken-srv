@@ -7,6 +7,9 @@ var categoryDB = require("./lib/category_db");
 var subjectDB = require("./lib/subject_db");
 
 
+var WaterfallTest = require("./waterfall_test");
+
+WaterfallTest.execute();
 
 var myServer = http.createServer(function(req, res) {
 	setTimeout(function() {
@@ -47,10 +50,6 @@ var myServer = http.createServer(function(req, res) {
 
             client.end();
             
-            var WaterfallTest = require("./waterfall_test");
-            
-            WaterfallTest.execute();
-
         } catch (e) {
             logger.error(e.stack);
             res.writeHead(200, {"Content-type": "text/html"});
@@ -61,7 +60,6 @@ var myServer = http.createServer(function(req, res) {
 	}, 1000);
 	//throw new Error("Bollocks.");
 });
-
 
 // Instead of this:
 //myServer.listen(12345);
