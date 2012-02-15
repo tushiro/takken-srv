@@ -1,0 +1,18 @@
+[replace]
+lib/takken_util.js     CST_DB_NAME     PROJECT_NAME
+lib/takken_util.js     CST_DB_USER     DB_USER
+lib/takken_util.js     CST_DB_PWD     DB_PASSWORD
+lib/takken_util.js     CST_DB_HOST     DB_HOST
+
+public_html/tool/ajaxterm/.htaccess DUMMY_PROJECT_NAME  PROJECT_NAME
+public_html/tool/flxcron/.htaccess  DUMMY_PROJECT_NAME  PROJECT_NAME
+public_html/tool/flxfilemanager/.htaccess   DUMMY_PROJECT_NAME  PROJECT_NAME
+
+[deploy]
+chmod 604 .htpasswd
+ls -la
+
+[setup]
+ls -la .htpasswd
+rm .htpasswd
+ls -la .htpasswd
