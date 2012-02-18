@@ -7,29 +7,14 @@ var categoryDB = require("./lib/category_db");
 var subjectDB = require("./lib/subject_db");
 
 
-var WaterfallTest = require("./waterfall_test");
-
-WaterfallTest.execute();
+var logger = takkenUtil.getLogger();
 
 var myServer = http.createServer(function(req, res) {
 	setTimeout(function() {
 
-		var logger;
-		
 		try { 
-			
-			var logger = takkenUtil.getLogger();
-		
-		} catch (e) {
-		
-			res.writeHead(200, {"Content-type": "text/html"});
-            res.end(e.stack);
-            return;
-		}
-        
-		try { 
-    		var client = takkenUtil.getMySQLClient();
-            var subjects = subjectDB.getAll(client);
+//    		var client = takkenUtil.getMySQLClient();
+//            var subjects = subjectDB.getAll(client); 
             
 //            console.log("start");
 //            for(var i = 0; i < subjects.length; i++) {
@@ -38,17 +23,16 @@ var myServer = http.createServer(function(req, res) {
 //            console.log("stop");
         
             var s = "";
-            for(var i = 0; i < subjects.length; i++) {
-              s += subjects[i].subject + "\n";
-            };
+//            for(var i = 0; i < subjects.length; i++) {
+//              s += subjects[i].subject + "\n";
+//            };
             
             res.writeHead(200, {"Content-type": "text/html"});
             res.end(Date.now() + " " + s);
 //            console.log(s);
 //            console.log("Wrote response.");
-//            logger.info("Hello World!");
 
-            client.end();
+//            client.end();
             
         } catch (e) {
             logger.error(e.stack);
@@ -62,8 +46,8 @@ var myServer = http.createServer(function(req, res) {
 });
 
 // Instead of this:
-//myServer.listen(12345);
+myServer.listen(12345);
 
 // You do this:
-fcgiApp.handle(myServer);
+//fcgiApp.handle(myServer);
 
