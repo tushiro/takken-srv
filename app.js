@@ -2,11 +2,10 @@
 var fcgiApp = require("./fcgi");
 var http = require("http");
 
-var takkenUtil = require("./lib/takken_util");
-var logger = takkenUtil.getLogger();
+var TakkenUtil = require("./lib/takken_util");
+var logger = TakkenUtil.getLogger();
 
 var responseJson = require("./lib/response_json");
-
 
 var myServer = http.createServer(function(req, res) {
 
