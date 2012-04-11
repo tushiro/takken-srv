@@ -1,0 +1,89 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8" />
+    <title>Question List</title>
+</head>
+<body>
+    <h1>Question List [<%= subject %>]</h1>
+    <div>
+        <span><a href="/subject_list">戻る</a></span>
+    </div>
+    <div>
+        <span>カテゴリー</span>
+        <span>問題年度</span>
+        <span>問題番号</span>
+        <span>問題文</span>
+        <span>解答番号</span>
+        <span>有効</span>
+        <br>
+    </div>
+    <%= 
+        function toJapanese(term) {
+            
+            var y = term;
+        
+            if (y > 1988) return "平成" + (y - 1988) + "年度";
+            if (y > 1925) return "昭和" + (y - 1925) + "年度";
+            if (y > 1911) return "大正" + (y - 1911) + "年度";
+            if (y > 1867) return "明治" + (y - 1867) + "年度";
+        }
+        
+        var map = [];
+    
+        for (var i = 0; i < questions.length; i++) {
+        
+            var question = questions[i];
+            
+            var list = map[question.category];
+            if (list == null) {
+                list = [];
+                map[question.category] = list;
+            }
+            
+            list.push(question);
+        }
+        
+        for (var i = 0; i < categories.length; i++) {
+        
+            var category = categories[i].category
+     %>
+            <div><span><%= category %></span></div>
+            <div><span></span></div>
+            <div><span></span></div>
+            <div><span></span></div>
+            <div><span></span></div>
+            <div><span></span></div>
+            <div><span></span></div>
+            <br>
+    <%=
+            var list = map[category];
+            
+            for (var j = 0; j < list.length; j++) {
+            
+                var question = list[j];
+                var category = question.category;
+                var test_term = question.test_term;
+                var number = question.question_number;
+                var sentence = question.question_sentence;
+                var answer = question.answer_number;
+                var enabled = question.enabled;
+     %>
+                <div>
+                    <span><%= toJapanese(test_term) %></span>
+                    <span>問<%= question_number %></span>
+                    <span><%= sentence %></span>
+                    <span><%= answer %></span>
+                    <span><%= enabled %></span>
+                    <span>
+                        <a href="./question_edit?subject=<%=subject %>&
+                            category=<%= category %>&
+                            test_term=<%= test_term %>&
+                            question_number=<%= number %>">
+                            編集
+                        </a>
+                    </span>
+                    <br>
+                </div>
+    <%=     }
+        } %>
+</body>

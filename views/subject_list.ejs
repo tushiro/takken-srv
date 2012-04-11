@@ -1,0 +1,19 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8" />
+    <title>Subject List</title>
+</head>
+<body>
+    <h1>Subject List</h1>
+    <%= for (var i = 0; i < subjects.length; i++) { %>
+
+        <%= var subject = subjects[i] %>
+        <div>
+            <span>
+                <a href="./question_list?subject=<%=subject.subject %>">
+                    <%= subject.description %>
+                </a>
+            </span>
+        </div>
+    <%= } %>
+</body>
