@@ -2,12 +2,7 @@ var fcgiApp = require('./fcgi');
 var express = require('express');
 // var routes = require('./routes');
 
-var TakkenUtil = require("./lib/takken_util");
-var logger = TakkenUtil.getLogger();
-var SecurityUtil = require('./lib/security_util');
-
-var responseJson = require("./lib/response_json");
-var clientService = require('./client_service');
+var ClientService = require('./client_service');
 
 var app = express.createServer();
 
@@ -36,56 +31,36 @@ app.configure('production', function() {
   app.use(express.errorHandler());
 });
 
-var doDownload = function (req, res) {
-    
-    var command = SecurityUtil.encode(req.query.message);
-
-    if (command != 'requestData') {
-        return;
-    }
-
-    setTimeout(function() {
-
-        try {
-            
-            responseJson.execute(req, res);
-            
-        } catch (e) {
-            logger.error(e.stack);
-            res.writeHead(200, {"Content-type": "text/html"});
-            res.end(e.stack);
-        }
-  
-    }, 1000);
-    //throw new Error("Bollocks.");
+var respondAllData = function (req, res) {
+    ClientService.respondAllData(req, res);  
 };
 
-app.all('/', doDownload());
-app.all('/download', doDownload());
+app.all('/', respondAllData);
+app.all('/download', respondAllData);
 
 app.all('/index', function (req, res) {
     res.render('index');
 });
 
 app.all('/login', function (req, res) {
-    clientService.login(req, res);
+    ClientService.login(req, res);
 });
 app.all('/logout', function (req, res) {
-    clientService.logout(req, res);
+    ClientService.logout(req, res);
 });
 
 app.all('/subject_list', function (req, res) {
-    clientService.responseSubjects(req, res);
+    ClientService.respondSubjects(req, res);
 });
 
 app.all('/question_list', function (req, res) {
-    clientService.responseQuestions(req, res);
+    ClientService.respondQuestions(req, res);
 });
 app.all('/question', function (req, res) {
-    clientService.responseQuestion(req, res);
+    ClientService.respondQuestion(req, res);
 });
 app.all('/question_update', function (req, res) {
-    clientService.updateQuestion(req, res);
+    ClientService.updateQuestion(req, res);
 });
 
 // Instead of this:

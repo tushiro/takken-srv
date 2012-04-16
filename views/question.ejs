@@ -11,6 +11,9 @@
     <div>
         <span><a href="/question_list?subject=<%= question.subject %>">戻る</a></span>
     </div>
+    <div>
+        <span><a href="/logtout">Logout</a></span>
+    </div>
     <%
         function toJapanese(term) {
             
@@ -28,102 +31,157 @@
         <span>問題番号</span><span>問<%= question.number %></span>
     </div>
     <br>
-    <div>
-        <form method="POST" action="/question_update">
-            <div>
-                <span>設問:</span><br>
-                <span>
-                    <textarea 
-                        name="question.sentence" 
-                        id="question.sentence" 
-                        cols="500" 
-                        rows="5"><%= question.sentence %>
-                    </textarea>
-                <span>
-                <span>問題文:</span><br>
-                <% 
-                    for (var i = 0; i < sentences.length; i++) {
-                    
-                        var sentence = sentences[i];
-                        if (sentence.type == 1) {
-                %>
-                            <span>
-                                <textarea 
-                                    name="sentence_<%= sentence.index %>.sentence" 
-                                    id="sentence_<%= sentence.index %>.sentence" 
-                                    cols="100" rows="5"><%= sentence.sentence %>
-                                </textarea>
-                            </span>
-                            <span>
-                                <input type="radio" 
-                                    name="sentence_<%= sentence.index %>.correct" 
-                                    id="sentence_<%= sentence.index %>.correct" 
-                                    value="1" "<%= sentence.correct != 1 ? "" : "checked" %>" />
-                                </span>○
-                            <span><input type="radio" name="sentence_<%= sentence.index %>.correct" value="2" "<%= sentence.correct == 1 ? "" : "checked" %>" /></span>×
-                            <span><input type="checkbox" 
-                                name="sentence_<%= sentences.index %>.yesno_question" 
-                                    <%= sentence.yesno_question == 1 ? "" : "checked" %> />１問１答
-                            </span>
-                            <br>
-                            <span>解説:</span><br>
-                            <span><textarea name="sentence_<%= sentences.index %>.desc" cols="100" rows="5"><%= sentence.desc %></textarea></span>
-                            <br>
-                            <span>更新者:</span>
-                            <span><%= sentence_<%= sentence.index %>.desc_user %></span>
-                            <span>更新日時:</span>
-                            <span><%= sentence_<%= sentence.index %>.desc_time %></span>
-                <%
-                        }
+    <form method="POST" action="/question_update">
+        <div>
+            <span>設問:</span><br>
+            <span>
+                <textarea 
+                    name="question.sentence" 
+                    id="question.sentence" 
+                    cols="500" 
+                    rows="5"><%= question.sentence %>
+                </textarea>
+            <span>
+            <span>問題文:</span><br>
+            <% 
+                for (var i = 0; i < sentences.length; i++) {
+                
+                    var sentence = sentences[i];
+                    if (sentence.type == 1) {
+            %>
+                        <span>
+                            <textarea 
+                                name="sentence_<%= sentence.index %>.sentence" 
+                                id="sentence_<%= sentence.index %>.sentence" 
+                                cols="100" rows="5">
+                                <%= sentence.sentence %>
+                            </textarea>
+                        </span>
+                        <span>
+                            <input type="radio" 
+                                name="sentence_<%= sentence.index %>.correct" 
+                                id="sentence_<%= sentence.index %>.correct" 
+                                value="1" "<%= sentence.correct != 1 ? "" : "checked" %>" />正解(○)
+                        </span>
+                        <span>
+                            <input type="radio"
+                                name="sentence_<%= sentence.index %>.correct" 
+                                id="sentence_<%= sentence.index %>.correct" 
+                                value="2" "<%= sentence.correct == 1 ? "" : "checked" %>" />不正(×)
+                        </span>
+                        <span>
+                        <input type="checkbox" 
+                            name="sentence_<%= sentences.index %>.yesno" 
+                            id="sentence_<%= sentences.index %>.yesno" 
+                            <%= sentence.yesno == 1 ? "" : "checked" %> />１問１答
+                        </span>
+                        <br>
+                        <span>解説:</span><br>
+                        <span>
+                            <textarea 
+                                name="sentence_<%= sentences.index %>.desc"
+                                id="sentence_<%= sentences.index %>.desc"
+                                cols="100" rows="5">
+                                <%= sentence.desc %>
+                            </textarea>
+                        </span>
+                        <br>
+                        <span>更新者:</span>
+                        <span><%= sentence_<%= sentence.index %>.desc_user %></span>
+                        <span>更新日時:</span>
+                        <span><%= sentence_<%= sentence.index %>.desc_time %></span>
+            <%
                     }
-                %>
-                <span>回答文:</span><br>
-                <%    
-                    for (var i = 0; i < sentences.length; i++) {
-                    
-                        var sentence = sentences[i];
-                        if (sentence.type == 2) {
-                %>
-                            <span><textarea name="sentence_<%= sentence.index %>.sentence" cols="100" rows="5"><%= sentence.sentence %></textarea></span>
-                            <span><input type="radio" name="sentence_<%= sentence.index %>.correct_yes" value="1" "<%= sentence.correct != 1 ? "" : "checked" %>" /></span>○
-                            <span><input type="radio" name="sentence_<%= sentence.index %>.correct_no" value="2" "<%= sentence.correct == 1 ? "" : "checked" %>" /></span>×
-                            <span><input type="checkbox" 
-                                name="sentence_<%= sentence.index %>.yesno_question" 
-                                value="<%= sentence.yesno_question == 1 %>" 
-                                <%= sentence.yesno_question == 1 ? "" : "checked" %> />
-                            １問１答</span>
-                            <br>
-                            <span>解説:</span><br>
-                            <span><textarea name="sentence_<%= sentence.index %>.desc" cols="100" rows="5"><%= sentence.desc %></textarea></span>
-                            <br>
-                            <span>更新者:</span>
-                            <span><%= sentence_<%= sentence.index %>.desc_user %></span>
-                            <span>更新日時:</span>
-                            <span><%= sentence_<%= sentence.index %>.desc_time %></span>
-                <%
-                        }
+                }
+            %>
+            <span>回答文:</span><br>
+            <%    
+                for (var i = 0; i < sentences.length; i++) {
+                
+                    var sentence = sentences[i];
+                    if (sentence.type == 2) {
+            %>
+                        <span>
+                            <textarea 
+                                name="sentence_<%= sentence.index %>.sentence" 
+                                id="sentence_<%= sentence.index %>.sentence" 
+                                cols="100" rows="5">
+                                <%= sentence.sentence %>
+                            </textarea>
+                        </span>
+                        <span>
+                            <input type="radio" 
+                                name="sentence_<%= sentence.index %>.correct_yes" 
+                                id="sentence_<%= sentence.index %>.correct_yes" 
+                                value="1" "<%= sentence.correct != 1 ? "" : "checked" %>" />
+                        </span>○
+                        <span>
+                            <input type="radio"
+                                name="sentence_<%= sentence.index %>.correct_no"
+                                id="sentence_<%= sentence.index %>.correct_no"
+                                value="2" "<%= sentence.correct == 1 ? "" : "checked" %>" />
+                        </span>×
+                        <span>
+                            <input type="checkbox" 
+                                name="sentence_<%= sentence.index %>.yesno" 
+                                id="sentence_<%= sentence.index %>.yesno" 
+                                value="<%= sentence.yesno == 1 %>" 
+                                <%= sentence.yesno == 1 ? "" : "checked" %> />
+                            １問１答
+                        </span>
+                        <br>
+                        <span>解説:</span><br>
+                        <span>
+                            <textarea 
+                                name="sentence_<%= sentence.index %>.desc" 
+                                id="sentence_<%= sentence.index %>.desc" 
+                                cols="100" rows="5">
+                                <%= sentence.desc %>
+                            </textarea>
+                        </span>
+                        <br>
+                        <span>更新者:</span>
+                        <span><%= sentence_<%= sentence.index %>.desc_user %></span>
+                        <span>更新日時:</span>
+                        <span><%= sentence_<%= sentence.index %>.desc_time %></span>
+            <%
                     }
-                %>
-                                
-                <span>解答:</span>
-                <span>
-                    <input type="radio" name="question.answer_number1" value="1" <%= question.answer_number != 1 ? "" : "checked" %> />(1)
-                    <input type="radio" name="question.answer_number2" value="2" <%= question.answer_number != 2 ? "" : "checked" %> />(2)
-                    <input type="radio" name="question.answer_number3" value="3" <%= question.answer_number != 3 ? "" : "checked" %> />(3)
-                    <input type="radio" name="question.answer_number4" value="4" <%= question.answer_number != 4 ? "" : "checked" %> />(4)
-                </span>
-                <span>
-                    <input type="checkbox" name="question.answer_number1" value="1" <%= question.enabled != 1 ? "" : "checked" %> />有効
-                </span>
-            </div>
-            <div>
-                <span><button type="submit">変更</button></span>
-            </div>
-            <input type="hidden" name="sentences.length" value="<%= sentences.length %>" />
-            <input type="hidden" name="question.subject" value="<%= quesition.subject %>" />
-            <input type="hidden" name="question.category" value="<%= quesition.category %>" />
-            <input type="hidden" name="question.term" value="<%= quesition.term %>" />
-            <input type="hidden" name="question.number" value="<%= quesition.number %>" />
+                }
+            %>
+                            
+            <span>解答:</span>
+            <span>
+                <input type="radio" 
+                    name="question.answer_number" 
+                    id="question.answer_number" 
+                    value="1" <%= question.answer_number != 1 ? "" : "checked" %> />(1)
+                <input type="radio" 
+                    name="question.answer_number"
+                    id="question.answer_number"
+                    value="2" <%= question.answer_number != 2 ? "" : "checked" %> />(2)
+                <input type="radio" 
+                    name="question.answer_number" 
+                    id="question.answer_number" 
+                    value="3" <%= question.answer_number != 3 ? "" : "checked" %> />(3)
+                <input type="radio" 
+                    name="question.answer_number" 
+                    id="question.answer_number" 
+                    value="4" <%= question.answer_number != 4 ? "" : "checked" %> />(4)
+            </span>
+            <span>
+                <input type="checkbox"
+                    name="question.enabled" 
+                    id="question.enabled" 
+                    <%= question.enabled != 1 ? "" : "checked" %> />有効
+            </span>
+        </div>
+        <div>
+            <span><button type="submit">変更</button></span>
+        </div>
+        <input type="hidden" name="sentences.length" id="sentences.length" value="<%= sentences.length %>" />
+        <input type="hidden" name="question.subject" id="question.subject" value="<%= quesition.subject %>" />
+        <input type="hidden" name="question.category" id="question.category" value="<%= quesition.category %>" />
+        <input type="hidden" name="question.term" id="question.term" value="<%= quesition.term %>" />
+        <input type="hidden" name="question.number" id="question.number" value="<%= quesition.number %>" />
         </form>
-    </div>
 </body>

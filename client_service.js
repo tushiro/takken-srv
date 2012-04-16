@@ -3,6 +3,9 @@ var async = require('async');
 
 var TakkenUtil = require('./lib/takken_util');
 var logger = TakkenUtil.getLogger();
+var SecurityUtil = require('./lib/security_util');
+
+var JsonResponder = require('./lib/response_json');
 
 var UserDB = require('./lib/user_db');
 var SubjectDB = require('./lib/subject_db');
@@ -18,10 +21,10 @@ module.exports.login = function (req, res) {
         });
     };
 
-    var userid = req.param('userid');
+    var userId = req.param('user_id');
     var password = req.param('password');
 
-    if (!userid) {
+    if (!userId) {
         res_error('not found "User ID"');
     }
 
@@ -52,6 +55,7 @@ module.exports.login = function (req, res) {
                 user.password == password) {
     
                 req.session.login = true;
+                req.session.userId = user.id;
                 res_success('login success.');
     
             } else {
@@ -69,69 +73,15 @@ module.exports.login = function (req, res) {
 }
 
 module.exports.logout = function (req, res) {
-    
-    var res_error = function (mes) {
-        res.render('index', {
-            locals : { message : mes }
-        });
-    };
 
-    var res_main = function () {
-        res.render('main_menu', {
-            locals : {
-                "userid"   : userid
-            }
-        });
-    };
-
-    var userid = req.param('userid');
-    var password = req.param('password');
-
-    if (!userid) {
-        res_error('not found "User ID"');
+    if (req.session.login) {
+        delete req.session.login;
+        delete req.session.userId;
     }
-
-    if (!password) {
-        res_error('not found "password"');
-    }
-    
-    var tasks = [
-        function (callback) {
-            
-            try {
-                var client = TakkenUtil.getCoreClient();
-                
-            } catch (e) {
-                callback(e);
-                return;                     
-            }
-         
-            callback(null, client);
-        },
-        function (client, callback) {
-            UserDB.get(client, userid, callback);
-        },
-        function (client, user, callback) {
-
-            if (user != null &&
-                user.id == userid &&
-                user.password == password) {
-    
-                req.session.login = true;
-                res_success('login success.');
-    
-            } else {
-                res_error("UserID or passwrod is different.");
-            }
-        }
-    ];
-
-    var errorHandle = function (err) {
-        logger.error(err);
-        res_error(err);
-    };
-    
-    async.waterfall(tasks, errorHandle);
+ 
+    res.render('index', {
+        locals : {message : 'Dont login. Please login again.'}
+    });
 }
 
 module.exports.check = function check(req, res, page) {
@@ -149,7 +99,7 @@ module.exports.check = function check(req, res, page) {
 
 module.exports.responseSubjects = function (req, res) {    
 
-    if (!check(req, res, './index')) {
+    if (!check(req, res, 'index')) {
         return;
     }
     
@@ -164,11 +114,39 @@ module.exports.responseSubjects = function (req, res) {
     SubjectDB.getAll(client, res, doResponce);
 }
 
-module.exports.responseQuestions = function (req, res) {    
+var JsonResponder = require('./lib/response_json');
+
+module.exports.respondAllData = function respondAllData(req, res) {
+    
+    var command = SecurityUtil.encode(req.query.message);
+
+    if (command != 'requestData') {
+        return;
+    }
+
+    doResponder = function() {
+
+        try {
+            
+            JsonResponder.execute(req, res);
+            
+        } catch (e) {
+            logger.error(e.stack);
+            res.writeHead(200, {"Content-type": "text/html"});
+            res.end(e.stack);
+        }
+    };
+
+    setTimeout(doResponder, 1000);
+}
+
+module.exports.respondQuestions = function (req, res) {    
 
     if (!check(req, res, './index')) {
         return;
     }
+    
+    var client;
     
     var subject = req.query.subject;
     
@@ -176,7 +154,7 @@ module.exports.responseQuestions = function (req, res) {
         function(callback) {
 
             try {
-                var client = takkenUtil.getCoreClient();
+                client = takkenUtil.getCoreClient();
                 
             } catch (e) {
                 callback(e);
@@ -218,9 +196,9 @@ module.exports.responseQuestions = function (req, res) {
     async.waterfall(tasks, errorHandle);
 }
 
-module.exports.responseQuestion = function (req, res) {    
+module.exports.respondQuestion = function (req, res) {    
 
-    if (!check(req, res, './index')) {
+    if (!check(req, res, 'index')) {
         return;
     }
     
@@ -229,13 +207,15 @@ module.exports.responseQuestion = function (req, res) {
     var term = req.query.term;
     var number = req.number;
 
+    var client;
+
     var cache = {};
     
     var tasks = [
         function(callback) {
 
             try {
-                var client = takkenUtil.getCoreClient();
+                client = takkenUtil.getCoreClient();
                 
             } catch (e) {
                 callback(e);
@@ -277,7 +257,7 @@ module.exports.responseQuestion = function (req, res) {
 
 module.exports.updateQuestion = function (req, res) {    
 
-    if (!check(req, res, './index')) {
+    if (!check(req, res, 'index')) {
         return;
     }
     
@@ -323,13 +303,15 @@ module.exports.updateQuestion = function (req, res) {
         sentences.push(sentence);
     }
 
+    var client;
+
     var cache = {};
     
     var tasks = [
         function(callback) {
 
             try {
-                var client = takkenUtil.getCoreClient();
+                client = takkenUtil.getCoreClient();
                 
                 client.startTrans();
                 
@@ -346,7 +328,7 @@ module.exports.updateQuestion = function (req, res) {
         function(callback, client) {
             
             for (var i = 0; i < sentences.length; i++) {
-                SentenceDB.update(client, callback, sentences);
+                SentenceDB.update(client, callback, sentences[i]);
             }   
         },
         function(callback, client) {
