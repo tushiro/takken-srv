@@ -63,23 +63,29 @@ var doDownload = function (req, res) {
 app.all('/', doDownload());
 app.all('/download', doDownload());
 
-app.get('/index', function (req, res) {
+app.all('/index', function (req, res) {
     res.render('index');
 });
 
-app.get('/login', function (req, res) {
+app.all('/login', function (req, res) {
     clientService.login(req, res);
 });
-app.get('/logout', function (req, res) {
+app.all('/logout', function (req, res) {
     clientService.logout(req, res);
 });
 
-app.get('/subject_list', function (req, res) {
+app.all('/subject_list', function (req, res) {
     clientService.responseSubjects(req, res);
 });
 
-app.get('/question_list', function (req, res) {
+app.all('/question_list', function (req, res) {
     clientService.responseQuestions(req, res);
+});
+app.all('/question', function (req, res) {
+    clientService.responseQuestion(req, res);
+});
+app.all('/question_update', function (req, res) {
+    clientService.updateQuestion(req, res);
 });
 
 // Instead of this:

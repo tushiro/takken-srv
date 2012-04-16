@@ -17,7 +17,7 @@
         <span>有効</span>
         <br>
     </div>
-    <%= 
+    <%
         function toJapanese(term) {
             
             var y = term;
@@ -55,35 +55,35 @@
             <div><span></span></div>
             <div><span></span></div>
             <br>
-    <%=
+    <%
             var list = map[category];
             
             for (var j = 0; j < list.length; j++) {
             
                 var question = list[j];
                 var category = question.category;
-                var test_term = question.test_term;
-                var number = question.question_number;
-                var sentence = question.question_sentence;
-                var answer = question.answer_number;
+                var term = question.term;
+                var number = question.number;
+                var sentence = question.sentence;
+                var answer = question.number;
                 var enabled = question.enabled;
      %>
                 <div>
-                    <span><%= toJapanese(test_term) %></span>
-                    <span>問<%= question_number %></span>
+                    <span><%= toJapanese(term) %></span>
+                    <span>問<%= number %></span>
                     <span><%= sentence %></span>
                     <span><%= answer %></span>
                     <span><%= enabled %></span>
                     <span>
-                        <a href="./question_edit?subject=<%=subject %>&
+                        <a href="./question?subject=<%=subject %>&
                             category=<%= category %>&
-                            test_term=<%= test_term %>&
-                            question_number=<%= number %>">
+                            term=<%= term %>&
+                            number=<%= number %>">
                             編集
                         </a>
                     </span>
                     <br>
                 </div>
-    <%=     }
+    <%    }
         } %>
 </body>

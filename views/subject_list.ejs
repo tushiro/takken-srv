@@ -5,15 +5,15 @@
 </head>
 <body>
     <h1>Subject List</h1>
-    <%= for (var i = 0; i < subjects.length; i++) { %>
+    <% for (var i = 0; i < subjects.length; i++) { %>
 
-        <%= var subject = subjects[i] %>
+        <% var subject = subjects[i] %>
         <div>
             <span>
                 <a href="./question_list?subject=<%=subject.subject %>">
-                    <%= subject.description %>
+                    <%= subject.desc %>
                 </a>
             </span>
         </div>
-    <%= } %>
+    <% } %>
 </body>
