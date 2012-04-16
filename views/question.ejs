@@ -30,7 +30,6 @@
         <span>問題年度</span><span><%= toJapanese(question.term) %></span>
         <span>問題番号</span><span>問<%= question.number %></span>
     </div>
-    <br>
     <form method="POST" action="/question_update">
         <div>
             <span>設問:</span><br>
@@ -42,7 +41,7 @@
                     rows="5"><%= question.sentence %>
                 </textarea>
             <span>
-            <span>問題文:</span><br>
+            <span>問題文:</span>
             <% 
                 for (var i = 0; i < sentences.length; i++) {
                 
@@ -75,8 +74,7 @@
                             id="sentence_<%= sentences.index %>.yesno" 
                             <%= sentence.yesno == 1 ? "" : "checked" %> />１問１答
                         </span>
-                        <br>
-                        <span>解説:</span><br>
+                        <span>解説:</span>
                         <span>
                             <textarea 
                                 name="sentence_<%= sentences.index %>.desc"
@@ -85,7 +83,6 @@
                                 <%= sentence.desc %>
                             </textarea>
                         </span>
-                        <br>
                         <span>更新者:</span>
                         <span><%= sentence_<%= sentence.index %>.desc_user %></span>
                         <span>更新日時:</span>
@@ -94,7 +91,7 @@
                     }
                 }
             %>
-            <span>回答文:</span><br>
+            <span>回答文:</span>
             <%    
                 for (var i = 0; i < sentences.length; i++) {
                 
@@ -129,8 +126,7 @@
                                 <%= sentence.yesno == 1 ? "" : "checked" %> />
                             １問１答
                         </span>
-                        <br>
-                        <span>解説:</span><br>
+                        <span>解説:</span>
                         <span>
                             <textarea 
                                 name="sentence_<%= sentence.index %>.desc" 
@@ -139,7 +135,6 @@
                                 <%= sentence.desc %>
                             </textarea>
                         </span>
-                        <br>
                         <span>更新者:</span>
                         <span><%= sentence_<%= sentence.index %>.desc_user %></span>
                         <span>更新日時:</span>
@@ -183,5 +178,11 @@
         <input type="hidden" name="question.category" id="question.category" value="<%= quesition.category %>" />
         <input type="hidden" name="question.term" id="question.term" value="<%= quesition.term %>" />
         <input type="hidden" name="question.number" id="question.number" value="<%= quesition.number %>" />
-        </form>
+    </form>
+    <div>
+        <span><a href="/question_list?subject=<%= question.subject %>">戻る</a></span>
+    </div>
+    <div>
+        <span><a href="/logtout">Logout</a></span>
+    </div>
 </body>
